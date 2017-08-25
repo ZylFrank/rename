@@ -1,0 +1,52 @@
+/**
+ * Created by 云龙你好 on 2015/10/1.
+ */
+var fs=require('fs');
+util=require('util');
+path='D:/checkout';
+function ok(){
+    function explorer(path){
+        fs.readdir(path,function(err,files){
+                if(err) {
+                    console.log('error:\n'+err);}
+                else{
+                    console.log(files);}
+                for (var i=0;i<files.length;i++)
+            {
+                var str = files[i];
+                var sr = str.match(/\d\D\d[)]/g);
+                var th = str.match(/\d\D\d\D\d/g)
+                var reg = /\d\D\d[)]/;
+                var res = str.replace(reg, '_');
+                console.log(res);
+                 var reg2=/[-]/;
+             var result=res.replace(reg2,' ');
+             console.log(result);
+             var reg3=/[-]/;
+             var result2=result.replace(reg3,' '+sr);
+             console.log(result2);
+             var reg4=/[.]\d[)]/;
+             var result3=result2.replace(reg4,' ');
+             console.log(result3);
+                var reg5=/\s/;
+                var result4=result3.replace(reg5,'-');
+                console.log(result4);
+                var reg6=/\s/;
+                var result5=result4.replace(reg6,'-');
+                console.log(result5);
+                
+                fs.rename('d:/checkout/'+str,'d:/checkout/'+result5,function(err){
+                 if(err) throw err;
+                 console.log('success')
+                 })
+
+
+
+                }
+            }
+        );}
+    explorer(path);
+
+
+}ok();
+//这个程序只是针对形如“4-6-optional interviews1.3)part1 how not to take a test.txt”类型的名称。
